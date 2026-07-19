@@ -1,26 +1,30 @@
 #!/bin/bash
 
+echo "US=$USER" > ~/.config-systemscripts
+echo "PROJECT=$(pwd)" >> ~/.config-systemscripts
+
+
 source /etc/os-release
-path=$(pwd)
+source ~/.config-systemscripts
 
 
 access_control() {
     clear
     sudo -v || access_denided
 
-    if [ ! -d /home/$USER/packages ]; then
-        mkdir /home/$USER/packages
+    if [ ! -d /home/$US/packages ]; then
+        mkdir /home/$US/packages
 
-        sudo chmod -R 700 /home/$USER/packages
-        sudo chown $USER:$USER /home/$USER/packages
-        sudo chmod -R 700 $path/modules
-        sudo chown $USER:$USER $path/modules
-        sudo chmod -R 700 $path/test
-        sudo chown $USER:$USER $path/test
+        sudo chmod -R 700 /home/$US/packages
+        sudo chown $US:$US /home/$US/packages
+        sudo chmod -R 700 $PROJECT/modules
+        sudo chown $US:$US $PROJECT/modules
+        sudo chmod -R 700 $PROJECT/test
+        sudo chown $US:$US $PROJECT/test
 
     fi
 
-    $path/test/net.sh
+    $PROJECT/test/net.sh
 }
 
 
@@ -36,13 +40,13 @@ run_proccess() {
 
     case $ID in
         "ubuntu")
-        sudo ./modules/ubuntu.sh
+        ./modules/ubuntu.sh
     ;;
         "debian")
-        sudo ./modules/debian.sh
+        ./modules/debian.sh
     ;;
         "kali")
-        sudo ./modules/kali.sh
+        ./modules/kali.sh
     ;;
         *)
         echo "ERROR: Unsupported system.."
