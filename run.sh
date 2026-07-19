@@ -15,10 +15,12 @@ access_control() {
         sudo chown $USER:$USER /home/$USER/packages
         sudo chmod -R 700 $path/modules
         sudo chown $USER:$USER $path/modules
+        sudo chmod -R 700 $path/test
+        sudo chown $USER:$USER $path/test
 
     fi
 
-    run_proccess
+    $path/test/net.sh
 }
 
 
@@ -51,3 +53,4 @@ run_proccess() {
 
 
 access_control
+run_proccess
